@@ -1,6 +1,33 @@
 
 document.addEventListener('DOMContentLoaded', function() {
 
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const mainNav = document.querySelector('.main-nav');
+    
+    mobileMenuToggle.addEventListener('click', function() {
+        mainNav.classList.toggle('active');
+
+        const icon = this.querySelector('i');
+        if (mainNav.classList.contains('active')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+        } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+    });
+    
+    if (window.innerWidth <= 768) {
+        document.querySelectorAll('.main-nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                mainNav.classList.remove('active');
+                const icon = mobileMenuToggle.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
+        });
+    }
+
     document.getElementById('current-year').textContent = new Date().getFullYear();
     
     AOS.init({
